@@ -1,0 +1,14 @@
+PATH
+  remote: .
+  specs:
+    civil_claims_assets (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  civil_claims_assets!
