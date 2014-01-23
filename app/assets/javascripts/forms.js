@@ -41,31 +41,36 @@ moj.Modules.forms = (function() {
         childItemClass,
         childItems,
         childItemsArray = [],
-        source = $( '#multiple-selector' ).html(),
-        template = Handlebars.compile( source ),
+        source,
+        template,
         context;
 
-    for( x = 0; x < multiples.length; x++ ) {
-      $panel = $( multiples[ x ] );
-      childItemClass = $panel.data( 'multiple' );
-      childItems = $panel.find( '.' + childItemClass );
+    if( multiples.length > 0 ) {
+      source = $( '#multiple-selector' ).html();
+      template = Handlebars.compile( source );
 
-      showMultiples( $panel, 1 );
+      for( x = 0; x < multiples.length; x++ ) {
+        $panel = $( multiples[ x ] );
+        childItemClass = $panel.data( 'multiple' );
+        childItems = $panel.find( '.' + childItemClass );
 
-      for( y = 0; y < childItems.length; y++ ) {
-        childItemsArray[ childItemsArray.length ] = {
-          val:    y + 1,
-          text:   ( y === 0 ? $panel.data( 'single' ) : $panel.data( 'plural' ) )
+        showMultiples( $panel, 1 );
+
+        for( y = 0; y < childItems.length; y++ ) {
+          childItemsArray[ childItemsArray.length ] = {
+            val:    y + 1,
+            text:   ( y === 0 ? $panel.data( 'single' ) : $panel.data( 'plural' ) )
+          };
+        }
+
+        context = {
+          id:       $panel.attr( 'id' ),
+          caption:  $panel.data( 'caption' ),
+          items:    childItemsArray
         };
+
+        $panel.prepend( template( context ) );
       }
-
-      context = {
-        id:       $panel.attr( 'id' ),
-        caption:  $panel.data( 'caption' ),
-        items:    childItemsArray
-      };
-
-      $panel.prepend( template( context ) );
     }
   };
 
